@@ -84,15 +84,23 @@ shinyServer(function(input, output) {
             
             if (input$algorithm == "nlr") {
                 
-                fit_results <- fit_dynamic_inactivation(exp_data, "Bigelow", temp_profile,
-                                                        starting_points, upper, lower,
-                                                        known_pars)
+                withProgress(message = "Fitting Bigelow model", value = 0, {
+                    
+                    fit_results <- fit_dynamic_inactivation(exp_data, "Bigelow", temp_profile,
+                                                            starting_points, upper, lower,
+                                                            known_pars)
+                })
+
                 
             } else {
-                fit_results <- fit_inactivation_MCMC(exp_data, "Bigelow", temp_profile,
-                                                     starting_points, upper, lower,
-                                                     known_pars)
                 
+                withProgress(message = "Fitting Bigelow model", value = 0, {
+                    
+                    fit_results <- fit_inactivation_MCMC(exp_data, "Bigelow", temp_profile,
+                                                         starting_points, upper, lower,
+                                                         known_pars)
+                    
+                })
             }
 
             fit_results
@@ -116,10 +124,13 @@ shinyServer(function(input, output) {
 
     output$bigelow_interval <- renderPlot({
         
-        temp_profile <- select(exp_data, time, temperature = temp)
-        prediction_interval <- predict_inactivation_MCMC(fit_bigelow(), temp_profile,
-                                                         quantiles = input$bigelow_quantiles)
-        plot(prediction_interval)
+        withProgress(message = "Calculating prediction interval", value = 0, {
+            
+            temp_profile <- select(exp_data, time, temperature = temp)
+            prediction_interval <- predict_inactivation_MCMC(fit_bigelow(), temp_profile,
+                                                             quantiles = input$bigelow_quantiles)
+            plot(prediction_interval)  
+        })
         
     })
     
@@ -174,19 +185,23 @@ shinyServer(function(input, output) {
             
             ## Make the adjustment
             
-            if (input$algorithm == "nlr") {
+            withProgress(message = "Fitting Peleg model", value = 0, {
                 
-                fit_results <- fit_dynamic_inactivation(exp_data, "Peleg", temp_profile,
-                                                        starting_points, upper, lower,
-                                                        known_pars)
+                if (input$algorithm == "nlr") {
+                    
+                    fit_results <- fit_dynamic_inactivation(exp_data, "Peleg", temp_profile,
+                                                            starting_points, upper, lower,
+                                                            known_pars)
+                    
+                } else {
+                    fit_results <- fit_inactivation_MCMC(exp_data, "Peleg", temp_profile,
+                                                         starting_points, upper, lower,
+                                                         known_pars)
+                    
+                }
                 
-            } else {
-                fit_results <- fit_inactivation_MCMC(exp_data, "Peleg", temp_profile,
-                                                     starting_points, upper, lower,
-                                                     known_pars)
-                
-            }
-            
+            })
+
             fit_results
         }
         
@@ -208,10 +223,14 @@ shinyServer(function(input, output) {
     
     output$peleg_interval <- renderPlot({
         
-        temp_profile <- select(exp_data, time, temperature = temp)
-        prediction_interval <- predict_inactivation_MCMC(fit_peleg(), temp_profile,
-                                                         quantiles = input$peleg_quantiles)
-        plot(prediction_interval)
+        withProgress(message = "Generating prediction interval", value = 0, {
+            
+            temp_profile <- select(exp_data, time, temperature = temp)
+            prediction_interval <- predict_inactivation_MCMC(fit_peleg(), temp_profile,
+                                                             quantiles = input$peleg_quantiles)
+            plot(prediction_interval)
+            
+        })
         
     })
     
@@ -274,22 +293,24 @@ shinyServer(function(input, output) {
             
             ## Make the adjustment
             
-            if (input$algorithm == "nlr") {
+            withProgress(message = "Fitting Mafart model", value = 0, {
                 
-                fit_results <- fit_dynamic_inactivation(exp_data, "Mafart", temp_profile,
-                                                        starting_points, upper, lower,
-                                                        known_pars)
+                if (input$algorithm == "nlr") {
+                    
+                    fit_results <- fit_dynamic_inactivation(exp_data, "Mafart", temp_profile,
+                                                            starting_points, upper, lower,
+                                                            known_pars)
+                    
+                } else {
+                    fit_results <- fit_inactivation_MCMC(exp_data, "Mafart", temp_profile,
+                                                         starting_points, upper, lower,
+                                                         known_pars)
+                    
+                }
                 
-            } else {
-                fit_results <- fit_inactivation_MCMC(exp_data, "Mafart", temp_profile,
-                                                     starting_points, upper, lower,
-                                                     known_pars)
-                
-            }
-            
-            fit_results
+                fit_results
+            })
         }
-        
     })
     
     #--------------------------------------------------------------------------
@@ -308,10 +329,14 @@ shinyServer(function(input, output) {
     
     output$mafart_interval <- renderPlot({
         
-        temp_profile <- select(exp_data, time, temperature = temp)
-        prediction_interval <- predict_inactivation_MCMC(fit_mafart(), temp_profile,
-                                                         quantiles = input$mafart_quantiles)
-        plot(prediction_interval)
+        withProgress(message = "Calculating prediction interval", value = 0, {
+            
+            temp_profile <- select(exp_data, time, temperature = temp)
+            prediction_interval <- predict_inactivation_MCMC(fit_mafart(), temp_profile,
+                                                             quantiles = input$mafart_quantiles)
+            plot(prediction_interval)
+            
+        })
         
     })
     
@@ -383,20 +408,24 @@ shinyServer(function(input, output) {
             
             ## Make the adjustment
             
-            if (input$algorithm == "nlr") {
+            withProgress(message = "Fitting Geeraerd model", value = 0, {
                 
-                fit_results <- fit_dynamic_inactivation(exp_data, "Geeraerd", temp_profile,
-                                                        starting_points, upper, lower,
-                                                        known_pars)
+                if (input$algorithm == "nlr") {
+                    
+                    fit_results <- fit_dynamic_inactivation(exp_data, "Geeraerd", temp_profile,
+                                                            starting_points, upper, lower,
+                                                            known_pars)
+                    
+                } else {
+                    fit_results <- fit_inactivation_MCMC(exp_data, "Geeraerd", temp_profile,
+                                                         starting_points, upper, lower,
+                                                         known_pars)
+                    
+                }
                 
-            } else {
-                fit_results <- fit_inactivation_MCMC(exp_data, "Geeraerd", temp_profile,
-                                                     starting_points, upper, lower,
-                                                     known_pars)
+                fit_results
                 
-            }
-            
-            fit_results
+            })
         }
         
     }) 
@@ -417,10 +446,14 @@ shinyServer(function(input, output) {
     
     output$geeraerd_interval <- renderPlot({
         
-        temp_profile <- select(exp_data, time, temperature = temp)
-        prediction_interval <- predict_inactivation_MCMC(fit_geeraerd(), temp_profile,
-                                                         quantiles = input$geeraerd_quantiles)
-        plot(prediction_interval)
+        withProgress(message = "Calculating prediction interval", value = 0, {
+            
+            temp_profile <- select(exp_data, time, temperature = temp)
+            prediction_interval <- predict_inactivation_MCMC(fit_geeraerd(), temp_profile,
+                                                             quantiles = input$geeraerd_quantiles)
+            plot(prediction_interval)
+            
+        })
         
     })
     
