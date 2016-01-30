@@ -60,7 +60,7 @@ shinyUI(navbarPage("bioinactivation",
                                                             tags$hr(),
                                                             selectInput("algorithm_bigelow", "Adjustment algorithm", c(nlr = "nlr", MCMC = "MCMC")),
                                                             sliderInput("bigelow_niter", "Number iterations MCMC", 100, 1000, 200, step = 100),
-                                                            sliderInput("bigelow_burn", "Burninglength MCMC", 0, 1000, 0, step = 100),
+                                                            sliderInput("bigelow_burn", "Burninlength MCMC", 0, 1000, 0, step = 100),
                                                             tags$hr(),
                                                             sliderInput("bigelow_quantiles", "Quantiles for prediction interval", 0, 100, c(2.5, 97.5), step = 0.5),
                                                             actionButton("btn_bigelow", "Adjust")
@@ -112,7 +112,7 @@ shinyUI(navbarPage("bioinactivation",
                                                             tags$hr(),
                                                             selectInput("algorithm_peleg", "Adjustment algorithm", c(nlr = "nlr", MCMC = "MCMC")),
                                                             sliderInput("peleg_niter", "Number iterations MCMC", 100, 1000, 200, step = 100),
-                                                            sliderInput("peleg_burn", "Burninglength MCMC", 0, 1000, 0, step = 100),
+                                                            sliderInput("peleg_burn", "Burninlength MCMC", 0, 1000, 0, step = 100),
                                                             tags$hr(),
                                                             sliderInput("peleg_quantiles", "Quantiles for prediction interval", 0, 100, c(2.5, 97.5), step = 0.5),
                                                             actionButton("btn_peleg", "Adjust")
@@ -137,30 +137,44 @@ shinyUI(navbarPage("bioinactivation",
                               tabPanel("Mafart",
                                        sidebarLayout(
                                            sidebarPanel(
-                                               tags$h3("Mafart model"),
-                                               tags$hr(),
-                                               tags$h4("Model parameters"),
-                                               sliderInput("mafart_delta_start", "delta_ref", 0, 100, 10),
-                                               checkboxInput("mafart_delta_known", "known"),
-                                               sliderInput("mafart_p_start", "p", 0, 10, 1, step = 0.5),
-                                               checkboxInput("mafart_p_known", "known"),
-                                               sliderInput("mafart_z_start", "z", 0, 100, 10),
-                                               checkboxInput("mafart_z_known", "knwon"),
-                                               sliderInput("mafart_temref_start", "temp_ref", 50, 200, 100),
-                                               checkboxInput("mafart_tempref_known", "known"),
-                                               sliderInput("mafart_logN0_start", "log(N0)", 3, 8, 5),
-                                               checkboxInput("mafart_logN0_known", "known"),
-                                               tags$hr(),
-                                               tags$h4("Bounds for the adjustment"),
-                                               sliderInput("mafart_delta_range", "delta", 0, 100, c(5, 20)),
-                                               sliderInput("mafart_p_range", "p", 0, 10, c(.5, 1.5), step = 0.5),
-                                               sliderInput("mafart_z_range", "z", 0, 100, c(5, 30)),
-                                               sliderInput("mafart_tempref_range", "temp_ref", 50, 200, c(80, 150)),
-                                               sliderInput("mafart_logN0_range", "log(N0)", 3, 8, c(4, 6)),
-                                               tags$hr(),
-                                               tags$h4("Quantiles for the prediction interval"),
-                                               sliderInput("mafart_quantiles", "", 0, 100, c(2.5, 97.5), step = 0.5),
-                                               actionButton("btn_mafart", "Adjust")
+                                               tabsetPanel(
+                                                   tabPanel("Model parameters",
+                                                            tags$h4("Delta at ref. temp"),
+                                                            sliderInput("mafart_delta_start", "Starting point", 0, 100, 10),
+                                                            sliderInput("mafart_delta_range", "Bounds", 0, 100, c(5, 20)),
+                                                            checkboxInput("mafart_delta_known", "known"),
+                                                            
+                                                            tags$h4("Parameter p"),
+                                                            sliderInput("mafart_p_start", "Starting point", 0, 10, 1, step = 0.5),
+                                                            sliderInput("mafart_p_range", "Bounds", 0, 10, c(.5, 1.5), step = 0.5),
+                                                            checkboxInput("mafart_p_known", "known"),
+                                                            
+                                                            tags$h4("Parameter z"),
+                                                            sliderInput("mafart_z_start", "z", 0, 100, 10),
+                                                            sliderInput("mafart_z_range", "z", 0, 100, c(5, 30)),
+                                                            checkboxInput("mafart_z_known", "knwon"),
+                                                            
+                                                            tags$h4("Reference temperature"),
+                                                            sliderInput("mafart_temref_start", "Starting point", 50, 200, 100),
+                                                            sliderInput("mafart_tempref_range", "Bounds", 50, 200, c(80, 150)),
+                                                            checkboxInput("mafart_tempref_known", "known"),
+                                                            
+                                                            tags$h4("Decimal logarithm of N0"),
+                                                            sliderInput("mafart_logN0_start", "Starting point", 3, 8, 5),
+                                                            sliderInput("mafart_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            checkboxInput("mafart_logN0_known", "known")
+                                                            ),
+                                                   tabPanel("Adjustment parameters",
+                                                            tags$hr(),
+                                                            selectInput("algorithm_mafart", "Adjustment algorithm", c(nlr = "nlr", MCMC = "MCMC")),
+                                                            sliderInput("mafart_niter", "Number iterations MCMC", 100, 1000, 200, step = 100),
+                                                            sliderInput("mafart_burn", "Burninlength MCMC", 0, 1000, 0, step = 100),
+                                                            tags$hr(),
+                                                            sliderInput("mafart_quantiles", "Quantiles for prediction interval", 0, 100, c(2.5, 97.5), step = 0.5),
+                                                            actionButton("btn_mafart", "Adjust")
+                                                            )
+                                                   )
+                                               
                                            ),
                                            mainPanel(
                                                tabsetPanel(

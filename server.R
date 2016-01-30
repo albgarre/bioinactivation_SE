@@ -326,7 +326,7 @@ shinyServer(function(input, output) {
             
             withProgress(message = "Fitting Mafart model", value = 0, {
                 
-                if (input$algorithm == "nlr") {
+                if (input$algorithm_mafart == "nlr") {
                     
                     fit_results <- fit_dynamic_inactivation(exp_data, "Mafart", temp_profile,
                                                             starting_points, upper, lower,
@@ -335,7 +335,8 @@ shinyServer(function(input, output) {
                 } else {
                     fit_results <- fit_inactivation_MCMC(exp_data, "Mafart", temp_profile,
                                                          starting_points, upper, lower,
-                                                         known_pars)
+                                                         known_pars, niter = input$mafart_niter,
+                                                         burninlength = input$mafart_burn)
                     
                 }
                 
