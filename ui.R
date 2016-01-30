@@ -11,10 +11,7 @@ shinyUI(navbarPage("bioinactivation",
                                                        accept=c('text/csv','text/comma-separated-values,text/plain', '.csv')),
                                              tags$hr(),
                                              radioButtons("sep", "Separator",
-                                                          c(Comma = ",", Semicolon = ";", Tab = "\t"), "\t"),
-                                             tags$hr(),
-                                             selectInput("algorithm", "Adjustment algorithm",
-                                                         c(nlr = "nlr", MCMC = "MCMC"))
+                                                          c(Comma = ",", Semicolon = ";", Tab = "\t"), "\t")
                                              ),
                                 mainPanel(
                                     tabsetPanel(tabPanel("Tabular view", tableOutput('contents')),
@@ -28,38 +25,48 @@ shinyUI(navbarPage("bioinactivation",
                    
                    #-----------------------------------------------------------------------------
                    
-                   navbarMenu("Adjustment",
+                   navbarMenu("Model fitting",
                               
                               #------------------------------------------------------------------
+                              
                               tabPanel("Bigelow",
                                        sidebarLayout(
                                            sidebarPanel(
-                                               tags$h3("Bigelow model"),
-                                               tags$hr(),
-                                               tags$h4("D-value at ref. temp."),
-                                               sliderInput("bigelow_DR_start", "Starting point", 0, 100, 10),
-                                               sliderInput("bigelow_DR_range", "Bounds", 0, 100, c(5, 20)),
-                                               checkboxInput("bigelow_DR_known", "known"),
+                                               tabsetPanel(
+                                                   tabPanel("Model parameters",
+                                                            tags$h4("D-value at ref. temp."),
+                                                            sliderInput("bigelow_DR_start", "Starting point", 0, 100, 10),
+                                                            sliderInput("bigelow_DR_range", "Bounds", 0, 100, c(5, 20)),
+                                                            checkboxInput("bigelow_DR_known", "known"),
+                                                            
+                                                            tags$h4("z-value"),
+                                                            sliderInput("bigelow_z_start", "Starting point", 0, 100, 10),
+                                                            sliderInput("bigelow_z_range", "Bounds", 0, 100, c(5, 20)),
+                                                            checkboxInput("bigelow_z_known", "known"),
+                                                            
+                                                            tags$h4("Reference temperature"),
+                                                            sliderInput("bigelow_temRef_start", "Starting point", 50, 200, 100),
+                                                            sliderInput("bigelow_tempRef_range", "Bounds", 50, 200, c(70, 80)),
+                                                            checkboxInput("bigelow_tempRef_known", "known"),
+                                                            
+                                                            tags$h4("Decimal logarithm of N0"),
+                                                            sliderInput("bigelow_logN0_start", "Starting point", 3, 8, 5),
+                                                            sliderInput("bigelow_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            checkboxInput("bigelow_logN0_known", "known")
+                                                            
+
+                                                            ),
+                                                   tabPanel("Fitting parameters",
+                                                            tags$hr(),
+                                                            selectInput("algorithm_bigelow", "Adjustment algorithm", c(nlr = "nlr", MCMC = "MCMC")),
+                                                            sliderInput("bigelow_niter", "Number iterations MCMC", 100, 1000, 200, step = 100),
+                                                            sliderInput("bigelow_burn", "Burninglength MCMC", 0, 1000, 0, step = 100),
+                                                            tags$hr(),
+                                                            sliderInput("bigelow_quantiles", "Quantiles for prediction interval", 0, 100, c(2.5, 97.5), step = 0.5),
+                                                            actionButton("btn_bigelow", "Adjust")
+                                                            )
+                                                   )
                                                
-                                               tags$h4("z-value"),
-                                               sliderInput("bigelow_z_start", "Starting point", 0, 100, 10),
-                                               sliderInput("bigelow_z_range", "Bounds", 0, 100, c(5, 20)),
-                                               checkboxInput("bigelow_z_known", "known"),
-                                               
-                                               tags$h4("Reference temperature"),
-                                               sliderInput("bigelow_temRef_start", "Starting point", 50, 200, 100),
-                                               sliderInput("bigelow_tempRef_range", "Bounds", 50, 200, c(70, 80)),
-                                               checkboxInput("bigelow_tempRef_known", "known"),
-                                               
-                                               tags$h4("Decimal logarithm of N0"),
-                                               sliderInput("bigelow_logN0_start", "Starting point", 3, 8, 5),
-                                               sliderInput("bigelow_logN0_range", "Bounds", 3, 8, c(4, 6)),
-                                               checkboxInput("bigelow_logN0_known", "known"),
-                                               
-                                               tags$hr(),
-                                               tags$h4("Prediction interval"),
-                                               sliderInput("bigelow_quantiles", "Quantiles", 0, 100, c(2.5, 97.5), step = 0.5),
-                                               actionButton("btn_bigelow", "Adjust")
                                                ),
                                            mainPanel(
                                                tabsetPanel(

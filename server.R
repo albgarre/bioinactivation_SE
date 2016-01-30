@@ -111,7 +111,7 @@ shinyServer(function(input, output) {
             
             ## Make the adjustment
             
-            if (input$algorithm == "nlr") {
+            if (input$algorithm_bigelow == "nlr") {
                 
                 withProgress(message = "Fitting Bigelow model", value = 0, {
                     
@@ -127,7 +127,8 @@ shinyServer(function(input, output) {
                     
                     fit_results <- fit_inactivation_MCMC(exp_data, "Bigelow", temp_profile,
                                                          starting_points, upper, lower,
-                                                         known_pars)
+                                                         known_pars, niter = input$bigelow_niter,
+                                                         burninlength = input$bigelow_burn)
                     
                 })
             }
