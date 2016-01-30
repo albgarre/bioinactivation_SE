@@ -86,31 +86,38 @@ shinyUI(navbarPage("bioinactivation",
                               tabPanel("Peleg",
                                        sidebarLayout(
                                            sidebarPanel(
-                                               tags$h3("Peleg model"),
-                                               tags$hr(),
-                                               tags$h4("Model parameters"),
-                                               sliderInput("peleg_kb_start", "k_b", 0.01, 1, 0.1),
-                                               checkboxInput("peleg_kb_known", "known"),
-                                               
-                                               sliderInput("peleg_n_start", "n", 0, 5, 0.5, step = 0.1),
-                                               checkboxInput("peleg_n_known", "known"),
-                                               
-                                               sliderInput("peleg_temcrit_start", "temp_crit", 50, 200, 120),
-                                               checkboxInput("peleg_tempcrit_known", "known"),
-                                               
-                                               sliderInput("peleg_logN0_start", "log(N0)", 3, 8, 6),
-                                               checkboxInput("peleg_logN0_known", "known"),
-                                               
-                                               tags$hr(),
-                                               tags$h4("Bounds for the adjustment"),
-                                               sliderInput("peleg_kb_range", "k_b", 0, 1, c(0.01, 0.5)),
-                                               sliderInput("peleg_n_range", "n", 0, 5, c(0.1, 1), step = 0.1),
-                                               sliderInput("peleg_tempcrit_range", "temp_crit", 50, 200, c(100, 150)),
-                                               sliderInput("peleg_logN0_range", "log(N0)", 3, 8, c(4, 6)),
-                                               tags$hr(),
-                                               tags$h4("Quantiles for the prediction interval"),
-                                               sliderInput("peleg_quantiles", "", 0, 100, c(2.5, 97.5), step = 0.5),
-                                               actionButton("btn_peleg", "Adjust")
+                                               tabsetPanel(
+                                                   tabPanel("Model parameters",
+                                                            tags$h4("Parameter k_b"),
+                                                            sliderInput("peleg_kb_start", "Starting point", 0.01, 1, 0.1),
+                                                            sliderInput("peleg_kb_range", "Bounds", 0, 1, c(0.01, 0.5)),
+                                                            checkboxInput("peleg_kb_known", "known"),
+                                                            
+                                                            tags$h4("Parameter n"),
+                                                            sliderInput("peleg_n_start", "Starting point", 0, 5, 0.5, step = 0.1),
+                                                            sliderInput("peleg_n_range", "Bounds", 0, 5, c(0.1, 1), step = 0.1),
+                                                            checkboxInput("peleg_n_known", "known"),
+                                                            
+                                                            tags$h4("Critical temperature"),
+                                                            sliderInput("peleg_temcrit_start", "Starting point", 50, 200, 120),
+                                                            sliderInput("peleg_tempcrit_range", "Bounds", 50, 200, c(100, 150)),
+                                                            checkboxInput("peleg_tempcrit_known", "known"),
+                                                            
+                                                            tags$h4("Decimal logarithm of N0"),
+                                                            sliderInput("peleg_logN0_start", "Starting point", 3, 8, 6),
+                                                            sliderInput("peleg_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            checkboxInput("peleg_logN0_known", "known")
+                                                            ),
+                                                   tabPanel("Fitting parameters",
+                                                            tags$hr(),
+                                                            selectInput("algorithm_peleg", "Adjustment algorithm", c(nlr = "nlr", MCMC = "MCMC")),
+                                                            sliderInput("peleg_niter", "Number iterations MCMC", 100, 1000, 200, step = 100),
+                                                            sliderInput("peleg_burn", "Burninglength MCMC", 0, 1000, 0, step = 100),
+                                                            tags$hr(),
+                                                            sliderInput("peleg_quantiles", "Quantiles for prediction interval", 0, 100, c(2.5, 97.5), step = 0.5),
+                                                            actionButton("btn_peleg", "Adjust")
+                                                            )
+                                                   )
                                            ),
                                            mainPanel(
                                                tabsetPanel(

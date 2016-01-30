@@ -217,7 +217,7 @@ shinyServer(function(input, output) {
             
             withProgress(message = "Fitting Peleg model", value = 0, {
                 
-                if (input$algorithm == "nlr") {
+                if (input$algorithm_peleg == "nlr") {
                     
                     fit_results <- fit_dynamic_inactivation(exp_data, "Peleg", temp_profile,
                                                             starting_points, upper, lower,
@@ -226,7 +226,8 @@ shinyServer(function(input, output) {
                 } else {
                     fit_results <- fit_inactivation_MCMC(exp_data, "Peleg", temp_profile,
                                                          starting_points, upper, lower,
-                                                         known_pars)
+                                                         known_pars, niter = input$peleg_niter,
+                                                         burninlength = input$peleg_burn)
                     
                 }
                 
