@@ -6,13 +6,14 @@ library(dplyr)
 #==============================================================================
 
 exp_data <- NULL
-bigelow_results <- NULL
 
 #==============================================================================
 
 #'
 #'
 shinyServer(function(input, output) {
+    
+    ## FUNCTIONS FOR DATA INPUT
     
     output$contents <- renderTable({
         
@@ -30,7 +31,35 @@ shinyServer(function(input, output) {
         exp_data
     })
     
+    #---------------------------------------------------------------------------
+    
+    output$input_survivor <- renderPlot({
+        
+        inFile <- input$file1
+        sep <- input$sep  # Esto es una buena chapuza
+        
+        if (is.null(inFile))
+            return(NULL)
+        
+        ggplot(exp_data) + geom_point(aes(x = time, y = log.UFC))
+    })
+    
+    #---------------------------------------------------------------------------
+    
+    output$input_temp <- renderPlot({
+        
+        inFile <- input$file1
+        sep <- input$sep
+        
+        if (is.null(inFile))
+            return(NULL)
+        
+        ggplot(exp_data) + geom_point(aes(x = time, y = temp))
+    })
+    
     #==========================================================================
+    
+    ## FUNCTIONS FOR MODEL ADJUSTMENT
     
     fit_bigelow <- eventReactive(input$btn_bigelow, {
         

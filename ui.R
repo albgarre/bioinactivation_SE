@@ -1,5 +1,5 @@
 
-## Code for the data input copied from http://rstudio.github.io/shiny/tutorial/#uploads
+## Code for the data input modified from http://rstudio.github.io/shiny/tutorial/#uploads
 
 shinyUI(navbarPage("bioinactivation",
                    
@@ -17,7 +17,11 @@ shinyUI(navbarPage("bioinactivation",
                                                          c(nlr = "nlr", MCMC = "MCMC"))
                                              ),
                                 mainPanel(
-                                    tableOutput('contents')
+                                    tabsetPanel(tabPanel("Tabular view", tableOutput('contents')),
+                                                tabPanel("Survivor curve", plotOutput("input_survivor")),
+                                                tabPanel("Temperature profile", plotOutput("input_temp"))
+                                                )
+                                    
                                     )
                                 )
                             ),
