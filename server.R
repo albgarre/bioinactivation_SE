@@ -442,7 +442,7 @@ shinyServer(function(input, output) {
             
             withProgress(message = "Fitting Geeraerd model", value = 0, {
                 
-                if (input$algorithm == "nlr") {
+                if (input$algorithm_geeraerd == "nlr") {
                     
                     fit_results <- fit_dynamic_inactivation(exp_data, "Geeraerd", temp_profile,
                                                             starting_points, upper, lower,
@@ -451,7 +451,8 @@ shinyServer(function(input, output) {
                 } else {
                     fit_results <- fit_inactivation_MCMC(exp_data, "Geeraerd", temp_profile,
                                                          starting_points, upper, lower,
-                                                         known_pars)
+                                                         known_pars, niter = input$geeraerd_niter,
+                                                         burninlength = input$geeraerd_burn)
                     
                 }
                 

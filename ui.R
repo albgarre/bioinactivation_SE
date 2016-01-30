@@ -193,33 +193,51 @@ shinyUI(navbarPage("bioinactivation",
                               tabPanel("Geeraerd",
                                        sidebarLayout(
                                            sidebarPanel(
-                                               tags$h3("Geeraerd model"),
-                                               tags$hr(),
-                                               tags$h4("Model parameters"),
-                                               sliderInput("geeraerd_DR_start", "D_R", 0, 100, 40),
-                                               checkboxInput("geeraerd_DR_known", "known"),
-                                               sliderInput("geeraerd_z_start", "z", 0, 100, 15),
-                                               checkboxInput("geeraerd_z_known", "knwon"),
-                                               sliderInput("geeraerd_tempref_start", "temp_ref", 50, 200, 100),
-                                               checkboxInput("geeraerd_tempref_known", "known"),
-                                               sliderInput("geeraerd_Cc0_start", "C_c0", 0, 20, 5),
-                                               checkboxInput("geeraerd_Cc0_known", "known"),
-                                               sliderInput("geeraerd_logNmin_start", "log(N_min)", 0, 5, 1),
-                                               checkboxInput("geeraerd_logNmin_known", "known"),
-                                               sliderInput("geeraerd_logN0_start", "log(N0)", 3, 8, 5),
-                                               checkboxInput("geeraerd_logN0_known", "known"),
-                                               tags$hr(),
-                                               tags$h4("Bounds for the adjustment"),
-                                               sliderInput("geeraerd_DR_range", "D_R", 0, 100, c(5, 60)),
-                                               sliderInput("geeraerd_z_range", "z", 0, 100, c(5, 30)),
-                                               sliderInput("geeraerd_tempref_range", "temp_ref", 50, 200, c(80, 150)),
-                                               sliderInput("geeraerd_C_c0_range", "C_c0", 0, 20, c(0, 5)),
-                                               sliderInput("geeraerd_logNmin_range", "log(N_min)", 0, 5, c(0, 3)),
-                                               sliderInput("geeraerd_logN0_range", "log(N0)", 3, 8, c(4, 6)),
-                                               tags$hr(),
-                                               tags$h4("Quantiles for the prediction interval"),
-                                               sliderInput("geeraerd_quantiles", "", 0, 100, c(2.5, 97.5), step = 0.5),
-                                               actionButton("btn_geeraerd", "Adjust")
+                                               
+                                               tabsetPanel(
+                                                   tabPanel("Model parameters",
+                                                            tags$h4("D-value at ref. temp."),
+                                                            sliderInput("geeraerd_DR_start", "Starting point", 0, 100, 40),
+                                                            sliderInput("geeraerd_DR_range", "Bounds", 0, 100, c(5, 60)),
+                                                            checkboxInput("geeraerd_DR_known", "known"),
+                                                            
+                                                            tags$h4("z-value"),
+                                                            sliderInput("geeraerd_z_start", "Starting point", 0, 100, 15),
+                                                            sliderInput("geeraerd_z_range", "Bounds", 0, 100, c(5, 30)),
+                                                            checkboxInput("geeraerd_z_known", "knwon"),
+                                                            
+                                                            tags$h4("Reference temperature"),
+                                                            sliderInput("geeraerd_tempref_start", "Starting point", 50, 200, 100),
+                                                            sliderInput("geeraerd_tempref_range", "Bounds", 50, 200, c(80, 150)),
+                                                            checkboxInput("geeraerd_tempref_known", "known"),
+                                                            
+                                                            tags$h4("Initial value of C_c"),
+                                                            sliderInput("geeraerd_Cc0_start", "Starting point", 0, 20, 5),
+                                                            sliderInput("geeraerd_C_c0_range", "Bounds", 0, 20, c(0, 5)),
+                                                            checkboxInput("geeraerd_Cc0_known", "known"),
+                                                            
+                                                            tags$h4("Decimal logarithm of N_min"),
+                                                            sliderInput("geeraerd_logNmin_start", "Starting point", 0, 5, 1),
+                                                            sliderInput("geeraerd_logNmin_range", "Bounds", 0, 5, c(0, 3)),
+                                                            checkboxInput("geeraerd_logNmin_known", "known"),
+                                                            
+                                                            tags$h4("Decimal logarithm of N0"),
+                                                            sliderInput("geeraerd_logN0_start", "Starting point", 3, 8, 5),
+                                                            sliderInput("geeraerd_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            checkboxInput("geeraerd_logN0_known", "known")
+                                                            ),
+                                                   tabPanel("Adjustment parameters",
+                                                            
+                                                            tags$hr(),
+                                                            selectInput("algorithm_geeraerd", "Adjustment algorithm", c(nlr = "nlr", MCMC = "MCMC")),
+                                                            sliderInput("geeraerd_niter", "Number iterations MCMC", 100, 1000, 200, step = 100),
+                                                            sliderInput("geeraerd_burn", "Burninlength MCMC", 0, 1000, 0, step = 100),
+                                                            tags$hr(),
+                                                            sliderInput("geeraerd_quantiles", "Quantiles for prediction interval", 0, 100, c(2.5, 97.5), step = 0.5),
+                                                            actionButton("btn_geeraerd", "Adjust")
+                                                            
+                                                            )
+                                                   )
                                            ),
                                            mainPanel(
                                                tabsetPanel(
