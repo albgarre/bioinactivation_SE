@@ -73,7 +73,10 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("bigelow_plot")),
                                                    tabPanel("Summary",
-                                                            verbatimTextOutput("bigelow_summary")),
+#                                                             verbatimTextOutput("bigelow_summary")
+                                                            tableOutput("bigelow_summary")
+                                                            ),
+                                                   
                                                    tabPanel("Prediction interval",
                                                             plotOutput("bigelow_interval"))
                                                    )

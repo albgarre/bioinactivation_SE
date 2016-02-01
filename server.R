@@ -146,9 +146,41 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
-    output$bigelow_summary <- renderPrint({
-        summary(fit_bigelow())
-    })
+#     output$bigelow_summary <- renderPrint({
+    output$bigelow_summary <- renderTable({
+        
+        my_fit <- fit_bigelow()
+        fit_summary <- summary(my_fit)
+        
+#         out_frame <- data.frame()
+        
+        if (input$algorithm_bigelow == "nlr") {
+            
+            out_frame <- as.data.frame(fit_summary$par)
+            out_frame <- cbind(rownames(out_frame), out_frame)
+            out_frame <- out_frame[ , 1:3]
+            names(out_frame) <- c("parameter", "estimate", "std")
+            n_df <- fit_summary$df[2]
+            t_value <- qt(0.975, n_df)
+            
+            out_frame <- mutate(out_frame,
+                                lower95 = estimate - t_value*std,
+                                upper95 = estimate + t_value*std
+                                )
+        } else {
+            
+            intervals <- apply(my_fit$modMCMC$pars, 2, quantile, probs = c(0.025, 0.975))
+            
+            out_frame <- data.frame(parameter = names(fit_summary),
+                                    estimate = my_fit$modMCMC$bestpar,
+                                    std = fit_summary[2, ],
+                                    lower95 = intervals[1, ],
+                                    upper95 = intervals[2, ])
+        }
+
+        out_frame
+        
+    }, include.rownames = FALSE)
     
     #--------------------------------------------------------------------------
 
