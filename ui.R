@@ -73,7 +73,6 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("bigelow_plot")),
                                                    tabPanel("Summary",
-#                                                             verbatimTextOutput("bigelow_summary")
                                                             tableOutput("bigelow_summary")
                                                             ),
                                                    
@@ -127,7 +126,7 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("peleg_plot")),
                                                    tabPanel("Summary",
-                                                            verbatimTextOutput("peleg_summary")),
+                                                            tableOutput("peleg_summary")),
                                                    tabPanel("Prediction interval",
                                                             plotOutput("peleg_interval"))
                                                )
@@ -184,7 +183,7 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("mafart_plot")),
                                                    tabPanel("Summary",
-                                                            verbatimTextOutput("mafart_summary")),
+                                                            tableOutput("mafart_summary")),
                                                    tabPanel("Prediction interval",
                                                             plotOutput("mafart_interval"))
                                                )
@@ -247,7 +246,7 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("geeraerd_plot")),
                                                    tabPanel("Summary",
-                                                            verbatimTextOutput("geeraerd_summary")),
+                                                            tableOutput("geeraerd_summary")),
                                                    tabPanel("Prediction interval",
                                                             plotOutput("geeraerd_interval"))
                                                )

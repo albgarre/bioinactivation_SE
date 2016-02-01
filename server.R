@@ -9,6 +9,57 @@ exp_data <- NULL
 
 #==============================================================================
 
+#' 
+#' Summary of a dynamic fit object
+#' 
+#' Returns a data frame with the estimate, standard deviation and 95% confidence
+#' interval of the model paramters of an object generated using non linear
+#' regression.
+#' 
+summary_dynamic_fit <- function(dynamic_fit) {
+    
+    fit_summary <- summary(dynamic_fit)
+    
+    out_frame <- as.data.frame(fit_summary$par)
+    out_frame <- cbind(rownames(out_frame), out_frame)
+    out_frame <- out_frame[ , 1:3]
+    names(out_frame) <- c("parameter", "estimate", "std")
+    n_df <- fit_summary$df[2]
+    t_value <- qt(0.975, n_df)
+    
+    out_frame <- mutate(out_frame,
+                        lower95 = estimate - t_value*std,
+                        upper95 = estimate + t_value*std
+                        )
+    
+    out_frame
+    
+}
+
+#'
+#' Summary of MCMC fit object
+#' 
+#' Returns a data frame with the estimate, standard deviation and 95% confidence
+#' interval of the model paramters of an object generated using MCMC.
+#' 
+summary_MCMC_fit <- function(MCMC_fit) {
+    
+    fit_summary <- summary(MCMC_fit)
+    
+    intervals <- apply(MCMC_fit$modMCMC$pars, 2, quantile, probs = c(0.025, 0.975))
+    
+    out_frame <- data.frame(parameter = names(fit_summary),
+                            estimate = MCMC_fit$modMCMC$bestpar,
+                            std = fit_summary[2, ],
+                            lower95 = intervals[1, ],
+                            upper95 = intervals[2, ])
+    
+    out_frame
+    
+}
+
+#==============================================================================
+
 #'
 #'
 shinyServer(function(input, output) {
@@ -146,36 +197,17 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
-#     output$bigelow_summary <- renderPrint({
     output$bigelow_summary <- renderTable({
         
         my_fit <- fit_bigelow()
-        fit_summary <- summary(my_fit)
-        
-#         out_frame <- data.frame()
         
         if (input$algorithm_bigelow == "nlr") {
             
-            out_frame <- as.data.frame(fit_summary$par)
-            out_frame <- cbind(rownames(out_frame), out_frame)
-            out_frame <- out_frame[ , 1:3]
-            names(out_frame) <- c("parameter", "estimate", "std")
-            n_df <- fit_summary$df[2]
-            t_value <- qt(0.975, n_df)
+            out_frame <- summary_dynamic_fit(my_fit)
             
-            out_frame <- mutate(out_frame,
-                                lower95 = estimate - t_value*std,
-                                upper95 = estimate + t_value*std
-                                )
+
         } else {
-            
-            intervals <- apply(my_fit$modMCMC$pars, 2, quantile, probs = c(0.025, 0.975))
-            
-            out_frame <- data.frame(parameter = names(fit_summary),
-                                    estimate = my_fit$modMCMC$bestpar,
-                                    std = fit_summary[2, ],
-                                    lower95 = intervals[1, ],
-                                    upper95 = intervals[2, ])
+            out_frame <- summary_MCMC_fit(my_fit)
         }
 
         out_frame
@@ -280,9 +312,24 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
-    output$peleg_summary <- renderPrint({
-        summary(fit_peleg())
-    })
+    output$peleg_summary <- renderTable({
+            
+            my_fit <- fit_peleg()
+            
+            if (input$algorithm_peleg == "nlr") {
+                
+                out_frame <- summary_dynamic_fit(my_fit)
+                
+                
+            } else {
+                out_frame <- summary_MCMC_fit(my_fit)
+            }
+            
+            out_frame
+            
+        }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
     
     output$peleg_interval <- renderPlot({
         
@@ -387,9 +434,24 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
-    output$mafart_summary <- renderPrint({
-        summary(fit_mafart())
-    })
+    output$mafart_summary <- renderTable({
+        
+        my_fit <- fit_mafart()
+        
+        if (input$algorithm_mafart == "nlr") {
+            
+            out_frame <- summary_dynamic_fit(my_fit)
+            
+            
+        } else {
+            out_frame <- summary_MCMC_fit(my_fit)
+        }
+        
+        out_frame
+        
+    }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
     
     output$mafart_interval <- renderPlot({
         
@@ -503,9 +565,22 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
-    output$geeraerd_summary <- renderPrint({
-        summary(fit_geeraerd())
-    })
+    output$geeraerd_summary <- renderTable({
+        
+        my_fit <- fit_geeraerd()
+        
+        if (input$algorithm_geeraerd == "nlr") {
+            
+            out_frame <- summary_dynamic_fit(my_fit)
+            
+            
+        } else {
+            out_frame <- summary_MCMC_fit(my_fit)
+        }
+        
+        out_frame
+        
+    }, include.rownames = FALSE)
     
     #--------------------------------------------------------------------------
     
