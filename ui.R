@@ -280,7 +280,36 @@ shinyUI(navbarPage("bioinactivation",
                                            )
                                            )
                                        )
-                              )
+                              ),
+                   
+                   #-----------------------------------------------------------------------------
+                   
+                   tabPanel("About",
+                            tags$h3("A shiny application for bioinactivation"),
+                            tags$hr(),
+                            tags$p("This shiny application has been developed in the department
+                                   of Food Microbiology of the Universidad Politecnica de Cartagena."),
+                            tags$p("This application provides a user interface to the functions for
+                                   fitting of non-isothermal experiments implemented in the bionactivation
+                                   package of R."),
+                            tags$p("A link to the latest version of this application can be found in the following
+                                   webpage:"),
+                            tags$p("www.TBD.es"),
+                            tags$hr(),
+                            tags$p("When using this application, please citate it as:"),
+                            tags$p("Alberto Garre, Pablo S. Fernandez and Jose A. Egea(2016).
+                                   bioinactivation: Simulation of Dynamic Microbial Inactivation.
+                                   R package version 1.1.1."),
+                            tags$p("A BibTeX entry for LaTeX users is"),
+                            tags$p("@Manual{,
+                                    title = {bioinactivation: Simulation of Dynamic Microbial Inactivation},
+                                    author = {Alberto Garre and Pablo S. Fernandez and Jose A. Egea},
+                                    year = {2016},
+                                    note = {R package version 1.1.1},
+                                    }"
+                                   )
+                            )
+                   
                    
                    #-----------------------------------------------------------------------------
 ))
