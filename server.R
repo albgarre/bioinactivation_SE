@@ -2,6 +2,7 @@
 library(ggplot2)
 library(bioinactivation)
 library(dplyr)
+library(FME)
 
 #==============================================================================
 
@@ -56,6 +57,62 @@ summary_MCMC_fit <- function(MCMC_fit) {
     
     out_frame
     
+}
+
+#==============================================================================
+
+#'
+#' Residual analysis of an MCMC fit
+#' 
+residuals_MCMC_fit <- function(MCMC_fit) {
+    
+#     loglike <- MCMC_fit$modMCMC$bestfunp
+    
+    simulation_model <- MCMC_fit$best_prediction$model
+    times <- MCMC_fit$data$time
+    parms <- MCMC_fit$best_prediction$model_parameters
+    temp_profile <- select(exp_data, time, temperature = temp)
+    
+    
+    my_prediction <- predict_inactivation(simulation_model, times, parms,
+                                          temp_profile)
+    
+    exp_data <- mutate(exp_data, logN = log10(N)) %>%
+                select(., time, logN)
+    
+    my_prediction <- my_prediction$simulation %>%
+                     select(., time, logN)
+    
+    my_prediction[my_prediction$time <= 1e-4, ]$time <- 0
+    
+    model_cost <- modCost(model = my_prediction, obs = exp_data)
+    n_points <- nrow(MCMC_fit$data)
+    
+    out_frame <- data.frame(SSE = model_cost$model,
+                            MSE = model_cost$model/n_points
+    )
+    out_frame
+    
+    
+    
+    
+    
+#     out_frame <- data.frame(SSE = min(MCMC_fit$modMCMC$SS), 
+#                             MSE = min(MCMC_fit$modMCMC$SS)/n_points,
+#                             loglikelihodd = loglike
+#                             )
+#     out_frame
+}
+
+#'
+#' Residual analysis of a nlr fit
+#' 
+residuals_nlr_fit <- function(dynamic_fit) {
+    
+    out_frame <- data.frame(SSE = dynamic_fit$fit_results$ssr,
+                            MSE = dynamic_fit$fit_results$ms
+                            )
+    out_frame
 }
 
 #==============================================================================
@@ -210,6 +267,24 @@ shinyServer(function(input, output) {
             out_frame <- summary_MCMC_fit(my_fit)
         }
 
+        out_frame
+        
+    }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
+    output$bigelow_residuals <- renderTable({
+        
+        my_fit <- fit_bigelow()
+        
+        if (input$algorithm_bigelow == "nlr") {
+            
+            out_frame <- residuals_nlr_fit(my_fit)
+            
+        } else {
+            out_frame <- residuals_MCMC_fit(my_fit)
+        }
+        
         out_frame
         
     }, include.rownames = FALSE)
