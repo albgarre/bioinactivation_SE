@@ -50,7 +50,7 @@ summary_MCMC_fit <- function(MCMC_fit) {
     
     out_frame <- data.frame(parameter = names(fit_summary),
                             estimate = MCMC_fit$modMCMC$bestpar,
-                            std = fit_summary[2, ],
+                            std = unlist(fit_summary[2, ]),
                             lower95 = intervals[1, ],
                             upper95 = intervals[2, ])
     
