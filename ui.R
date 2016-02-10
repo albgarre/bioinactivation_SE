@@ -73,7 +73,13 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("bigelow_plot")),
                                                    tabPanel("Summary",
-                                                            tableOutput("bigelow_summary")
+                                                            tags$h4("Coefficients"),
+                                                            tableOutput("bigelow_summary"),
+                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            tags$hr(),
+                                                            tags$h4("Residuals"),
+                                                            tableOutput("bigelow_residuals")
                                                             ),
                                                    
                                                    tabPanel("Prediction interval",
@@ -126,7 +132,14 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("peleg_plot")),
                                                    tabPanel("Summary",
-                                                            tableOutput("peleg_summary")),
+                                                            tags$h4("Coefficients"),
+                                                            tableOutput("peleg_summary"),
+                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            tags$hr(),
+                                                            tags$h4("Residuals"),
+                                                            tableOutput("peleg_residuals")
+                                                            ),
                                                    tabPanel("Prediction interval",
                                                             plotOutput("peleg_interval"))
                                                )
@@ -183,7 +196,14 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("mafart_plot")),
                                                    tabPanel("Summary",
-                                                            tableOutput("mafart_summary")),
+                                                            tags$h4("Coefficients"),
+                                                            tableOutput("mafart_summary"),
+                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            tags$hr(),
+                                                            tags$h4("Residuals"),
+                                                            tableOutput("mafart_residuals")
+                                                            ),
                                                    tabPanel("Prediction interval",
                                                             plotOutput("mafart_interval"))
                                                )
@@ -246,7 +266,14 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Plot",
                                                             plotOutput("geeraerd_plot")),
                                                    tabPanel("Summary",
-                                                            tableOutput("geeraerd_summary")),
+                                                            tags$h4("Coefficients"),
+                                                            tableOutput("geeraerd_summary"),
+                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            tags$hr(),
+                                                            tags$h4("Residuals"),
+                                                            tableOutput("geeraerd_residuals")
+                                                            ),
                                                    tabPanel("Prediction interval",
                                                             plotOutput("geeraerd_interval"))
                                                )
