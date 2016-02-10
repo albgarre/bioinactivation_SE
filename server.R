@@ -92,16 +92,6 @@ residuals_MCMC_fit <- function(MCMC_fit) {
                             MSE = model_cost$model/n_points
     )
     out_frame
-    
-    
-    
-    
-    
-#     out_frame <- data.frame(SSE = min(MCMC_fit$modMCMC$SS), 
-#                             MSE = min(MCMC_fit$modMCMC$SS)/n_points,
-#                             loglikelihodd = loglike
-#                             )
-#     out_frame
 }
 
 #'
@@ -406,6 +396,24 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
+    output$peleg_residuals <- renderTable({
+        
+        my_fit <- fit_peleg()
+        
+        if (input$algorithm_peleg == "nlr") {
+            
+            out_frame <- residuals_nlr_fit(my_fit)
+            
+        } else {
+            out_frame <- residuals_MCMC_fit(my_fit)
+        }
+        
+        out_frame
+        
+    }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
     output$peleg_interval <- renderPlot({
         
         withProgress(message = "Generating prediction interval", value = 0, {
@@ -520,6 +528,24 @@ shinyServer(function(input, output) {
             
         } else {
             out_frame <- summary_MCMC_fit(my_fit)
+        }
+        
+        out_frame
+        
+    }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
+    output$mafart_residuals <- renderTable({
+        
+        my_fit <- fit_mafart()
+        
+        if (input$algorithm_mafart == "nlr") {
+            
+            out_frame <- residuals_nlr_fit(my_fit)
+            
+        } else {
+            out_frame <- residuals_MCMC_fit(my_fit)
         }
         
         out_frame
@@ -651,6 +677,24 @@ shinyServer(function(input, output) {
             
         } else {
             out_frame <- summary_MCMC_fit(my_fit)
+        }
+        
+        out_frame
+        
+    }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
+    output$geeraerd_residuals <- renderTable({
+        
+        my_fit <- fit_geeraerd()
+        
+        if (input$algorithm_geeraerd == "nlr") {
+            
+            out_frame <- residuals_nlr_fit(my_fit)
+            
+        } else {
+            out_frame <- residuals_MCMC_fit(my_fit)
         }
         
         out_frame
