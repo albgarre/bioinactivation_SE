@@ -290,7 +290,7 @@ shinyServer(function(input, output) {
             temp_profile <- select(exp_data, time, temperature = temp)
             prediction_interval <- predict_inactivation_MCMC(fit_bigelow(), temp_profile,
                                                              quantiles = input$bigelow_quantiles)
-            plot(prediction_interval)  
+            plot(prediction_interval)  + ylab("logN")
         })
         
     })
@@ -423,7 +423,7 @@ shinyServer(function(input, output) {
             temp_profile <- select(exp_data, time, temperature = temp)
             prediction_interval <- predict_inactivation_MCMC(fit_peleg(), temp_profile,
                                                              quantiles = input$peleg_quantiles)
-            plot(prediction_interval)
+            plot(prediction_interval) + ylab("logN")
             
         })
         
@@ -563,7 +563,7 @@ shinyServer(function(input, output) {
             temp_profile <- select(exp_data, time, temperature = temp)
             prediction_interval <- predict_inactivation_MCMC(fit_mafart(), temp_profile,
                                                              quantiles = input$mafart_quantiles)
-            plot(prediction_interval)
+            plot(prediction_interval)  + ylab("logN")
             
         })
         
@@ -712,7 +712,7 @@ shinyServer(function(input, output) {
             temp_profile <- select(exp_data, time, temperature = temp)
             prediction_interval <- predict_inactivation_MCMC(fit_geeraerd(), temp_profile,
                                                              quantiles = input$geeraerd_quantiles)
-            plot(prediction_interval)
+            plot(prediction_interval) + ylab("logN")
             
         })
         
