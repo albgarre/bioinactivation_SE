@@ -89,7 +89,8 @@ residuals_MCMC_fit <- function(MCMC_fit) {
     n_points <- nrow(MCMC_fit$data)
     
     out_frame <- data.frame(SSE = model_cost$model,
-                            MSE = model_cost$model/n_points
+                            MSE = model_cost$model/n_points,
+                            RMSE = sqrt(model_cost$model/n_points)
     )
     out_frame
 }
@@ -100,7 +101,8 @@ residuals_MCMC_fit <- function(MCMC_fit) {
 residuals_nlr_fit <- function(dynamic_fit) {
     
     out_frame <- data.frame(SSE = dynamic_fit$fit_results$ssr,
-                            MSE = dynamic_fit$fit_results$ms
+                            MSE = dynamic_fit$fit_results$ms,
+                            RMSE = sqrt(dynamic_fit$fit_results$ms)
                             )
     out_frame
 }
