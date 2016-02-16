@@ -731,6 +731,33 @@ shinyServer(function(input, output) {
         }
     )
     
+    output$down_Peleg_pred <- downloadHandler(
+        filename = function() input$filename_Peleg_pred,
+        content = function(file) {
+            out_results <- fit_peleg()
+            print(out_results$best_prediction$simulation)
+            write.csv(out_results$best_prediction$simulation, file = file, row.names = FALSE)
+        }
+    )
+    
+    output$down_Mafart_pred <- downloadHandler(
+        filename = function() input$filename_Mafart_pred,
+        content = function(file) {
+            out_results <- fit_mafart()
+            print(out_results$best_prediction$simulation)
+            write.csv(out_results$best_prediction$simulation, file = file, row.names = FALSE)
+        }
+    )
+    
+    output$down_Geeraerd_pred <- downloadHandler(
+        filename = function() input$filename_Geeraerd_pred,
+        content = function(file) {
+            out_results <- fit_geeraerd()
+            print(out_results$best_prediction$simulation)
+            write.csv(out_results$best_prediction$simulation, file = file, row.names = FALSE)
+        }
+    )
+    
 })
 
 

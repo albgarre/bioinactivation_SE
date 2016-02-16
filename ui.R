@@ -86,7 +86,6 @@ shinyUI(navbarPage("bioinactivation",
                                                             plotOutput("bigelow_interval")),
                                                    
                                                    tabPanel("Export results",
-                                                            tags$hr(),
                                                             tags$h4("Adjusted model"),
                                                             textInput("filename_Bigelow_pred", "File name:", "prediction-Bigelow.csv"),
                                                             downloadButton("down_Bigelow_pred", "Download")
@@ -148,7 +147,13 @@ shinyUI(navbarPage("bioinactivation",
                                                             tableOutput("peleg_residuals")
                                                             ),
                                                    tabPanel("Prediction interval",
-                                                            plotOutput("peleg_interval"))
+                                                            plotOutput("peleg_interval")),
+                                                   
+                                                   tabPanel("Export results",
+                                                            tags$h4("Adjusted model"),
+                                                            textInput("filename_Peleg_pred", "File name:", "prediction-Peleg.csv"),
+                                                            downloadButton("down_Peleg_pred", "Download")
+                                                   )
                                                )
                                            )
                                        )
@@ -212,7 +217,13 @@ shinyUI(navbarPage("bioinactivation",
                                                             tableOutput("mafart_residuals")
                                                             ),
                                                    tabPanel("Prediction interval",
-                                                            plotOutput("mafart_interval"))
+                                                            plotOutput("mafart_interval")),
+                                                   
+                                                   tabPanel("Export results",
+                                                            tags$h4("Adjusted model"),
+                                                            textInput("filename_Mafart_pred", "File name:", "prediction-Mafart.csv"),
+                                                            downloadButton("down_Mafart_pred", "Download")
+                                                   )
                                                )
                                            )
                                        )),
@@ -282,7 +293,13 @@ shinyUI(navbarPage("bioinactivation",
                                                             tableOutput("geeraerd_residuals")
                                                             ),
                                                    tabPanel("Prediction interval",
-                                                            plotOutput("geeraerd_interval"))
+                                                            plotOutput("geeraerd_interval")),
+                                                   
+                                                   tabPanel("Export results",
+                                                            tags$h4("Adjusted model"),
+                                                            textInput("filename_Geeraerd_pred", "File name:", "prediction-Geeraerd.csv"),
+                                                            downloadButton("down_Geeraerd_pred", "Download")
+                                                   )
                                                )
                                            )
                                            )
