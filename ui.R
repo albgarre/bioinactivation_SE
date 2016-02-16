@@ -83,7 +83,14 @@ shinyUI(navbarPage("bioinactivation",
                                                             ),
                                                    
                                                    tabPanel("Prediction interval",
-                                                            plotOutput("bigelow_interval"))
+                                                            plotOutput("bigelow_interval")),
+                                                   
+                                                   tabPanel("Export results",
+                                                            tags$hr(),
+                                                            tags$h4("Adjusted model"),
+                                                            textInput("filename_Bigelow_pred", "File name:", "prediction-Bigelow.csv"),
+                                                            downloadButton("down_Bigelow_pred", "Download")
+                                                            )
                                                    )
                                                )
                                            )

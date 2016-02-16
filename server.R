@@ -718,6 +718,19 @@ shinyServer(function(input, output) {
         
     })
     
+    #==========================================================================
+    
+    ## FUNCTIONS FOR DOWNLOADING RESULTS
+    
+    output$down_Bigelow_pred <- downloadHandler(
+        filename = function() input$filename_Bigelow_pred,
+        content = function(file) {
+            out_results <- fit_bigelow()
+            print(out_results$best_prediction$simulation)
+            write.csv(out_results$best_prediction$simulation, file = file, row.names = FALSE)
+        }
+    )
+    
 })
 
 
