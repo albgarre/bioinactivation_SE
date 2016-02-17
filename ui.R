@@ -45,13 +45,13 @@ shinyUI(navbarPage("bioinactivation",
                                                             checkboxInput("bigelow_z_known", "known"),
                                                             
                                                             tags$h4("Reference temperature"),
-                                                            sliderInput("bigelow_temRef_start", "Initial estimate", 50, 200, 100),
-                                                            sliderInput("bigelow_tempRef_range", "Bounds", 50, 200, c(70, 80)),
+                                                            sliderInput("bigelow_temRef_start", "Initial estimate", 10, 200, 100),
+                                                            sliderInput("bigelow_tempRef_range", "Bounds", 10, 200, c(70, 80)),
                                                             checkboxInput("bigelow_tempRef_known", "known"),
                                                             
                                                             tags$h4("Decimal logarithm of N0"),
-                                                            sliderInput("bigelow_logN0_start", "Initial estimate", 3, 8, 5),
-                                                            sliderInput("bigelow_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            sliderInput("bigelow_logN0_start", "Initial estimate", 3, 8, 5, step = 0.5),
+                                                            sliderInput("bigelow_logN0_range", "Bounds", 3, 8, c(4, 6), step = 0.5),
                                                             checkboxInput("bigelow_logN0_known", "known")
                                                             
 
@@ -113,13 +113,13 @@ shinyUI(navbarPage("bioinactivation",
                                                             checkboxInput("peleg_n_known", "known"),
                                                             
                                                             tags$h4("Critical temperature"),
-                                                            sliderInput("peleg_temcrit_start", "Initial estimate", 50, 200, 120),
-                                                            sliderInput("peleg_tempcrit_range", "Bounds", 50, 200, c(100, 150)),
+                                                            sliderInput("peleg_temcrit_start", "Initial estimate", 10, 200, 120),
+                                                            sliderInput("peleg_tempcrit_range", "Bounds", 10, 200, c(100, 150)),
                                                             checkboxInput("peleg_tempcrit_known", "known"),
                                                             
                                                             tags$h4("Decimal logarithm of N0"),
-                                                            sliderInput("peleg_logN0_start", "Initial estimate", 3, 8, 6),
-                                                            sliderInput("peleg_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            sliderInput("peleg_logN0_start", "Initial estimate", 3, 8, 6, step = 0.5),
+                                                            sliderInput("peleg_logN0_range", "Bounds", 3, 8, c(4, 6), step = 0.5),
                                                             checkboxInput("peleg_logN0_known", "known")
                                                             ),
                                                    tabPanel("Fitting parameters",
@@ -182,13 +182,13 @@ shinyUI(navbarPage("bioinactivation",
                                                             checkboxInput("mafart_z_known", "knwon"),
                                                             
                                                             tags$h4("Reference temperature"),
-                                                            sliderInput("mafart_temref_start", "Initial estimate", 50, 200, 100),
-                                                            sliderInput("mafart_tempref_range", "Bounds", 50, 200, c(80, 150)),
+                                                            sliderInput("mafart_temref_start", "Initial estimate", 10, 200, 100),
+                                                            sliderInput("mafart_tempref_range", "Bounds", 10, 200, c(80, 150)),
                                                             checkboxInput("mafart_tempref_known", "known"),
                                                             
                                                             tags$h4("Decimal logarithm of N0"),
-                                                            sliderInput("mafart_logN0_start", "Initial estimate", 3, 8, 5),
-                                                            sliderInput("mafart_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            sliderInput("mafart_logN0_start", "Initial estimate", 3, 8, 5, step = 0.5),
+                                                            sliderInput("mafart_logN0_range", "Bounds", 3, 8, c(4, 6), step = 0.5),
                                                             checkboxInput("mafart_logN0_known", "known")
                                                             ),
                                                    tabPanel("Adjustment parameters",
@@ -247,8 +247,8 @@ shinyUI(navbarPage("bioinactivation",
                                                             checkboxInput("geeraerd_z_known", "knwon"),
                                                             
                                                             tags$h4("Reference temperature"),
-                                                            sliderInput("geeraerd_tempref_start", "Initial estimate", 50, 200, 100),
-                                                            sliderInput("geeraerd_tempref_range", "Bounds", 50, 200, c(80, 150)),
+                                                            sliderInput("geeraerd_tempref_start", "Initial estimate", 10, 200, 100),
+                                                            sliderInput("geeraerd_tempref_range", "Bounds", 10, 200, c(80, 150)),
                                                             checkboxInput("geeraerd_tempref_known", "known"),
                                                             
                                                             tags$h4("Initial value of C_c"),
@@ -262,8 +262,8 @@ shinyUI(navbarPage("bioinactivation",
                                                             checkboxInput("geeraerd_logNmin_known", "known"),
                                                             
                                                             tags$h4("Decimal logarithm of N0"),
-                                                            sliderInput("geeraerd_logN0_start", "Initial estimate", 3, 8, 5),
-                                                            sliderInput("geeraerd_logN0_range", "Bounds", 3, 8, c(4, 6)),
+                                                            sliderInput("geeraerd_logN0_start", "Initial estimate", 3, 8, 5, step = 0.5),
+                                                            sliderInput("geeraerd_logN0_range", "Bounds", 3, 8, c(4, 6), step = 0.5),
                                                             checkboxInput("geeraerd_logN0_known", "known")
                                                             ),
                                                    tabPanel("Adjustment parameters",
