@@ -313,7 +313,7 @@ shinyUI(navbarPage("bioinactivation",
                                 sidebarPanel(helpText("Clicking the following button resets the state of the internal
                                                       pseudo-random number generator, providing reproducibility of the MCMC
                                                       results"),
-                                             actionButton("btn_reset_sheed", "Reset PRNG")
+                                             actionButton("btn_reset_seed", "Reset PRNG")
                                              ),
                                 mainPanel()
                                 )

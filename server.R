@@ -778,6 +778,14 @@ shinyServer(function(input, output) {
         }
     )
     
+    #==========================================================================
+    
+    ## Functions for the PRNG
+    
+    observeEvent(input$btn_reset_seed, {
+        set.seed(41029072)
+    })
+    
 })
 
 
