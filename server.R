@@ -438,6 +438,27 @@ shinyServer(function(input, output) {
     
     #--------------------------------------------------------------------------
     
+    output$peleg_correlation <- renderTable({
+        
+        my_fit <- fit_peleg()
+        
+        if (is.FitInactivation(my_fit)) {
+            
+            my_summary <- summary(my_fit)
+            cov2cor(my_summary$cov.unscaled)
+            
+        } else if (is.FitInactivationMCMC(my_fit)) {
+            
+            cor(my_fit$modMCMC$pars)
+            
+        } else {
+            print("Unknown object type")
+        }
+        
+    }, inlude.rownames = TRUE)
+    
+    #--------------------------------------------------------------------------
+    
     output$peleg_interval <- renderPlot({
         
         withProgress(message = "Generating prediction interval", value = 0, {
@@ -575,6 +596,27 @@ shinyServer(function(input, output) {
         out_frame
         
     }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
+    output$mafart_correlation <- renderTable({
+        
+        my_fit <- fit_mafart()
+        
+        if (is.FitInactivation(my_fit)) {
+            
+            my_summary <- summary(my_fit)
+            cov2cor(my_summary$cov.unscaled)
+            
+        } else if (is.FitInactivationMCMC(my_fit)) {
+            
+            cor(my_fit$modMCMC$pars)
+            
+        } else {
+            print("Unknown object type")
+        }
+        
+    }, inlude.rownames = TRUE)
     
     #--------------------------------------------------------------------------
     
@@ -724,6 +766,27 @@ shinyServer(function(input, output) {
         out_frame
         
     }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
+    output$geeraerd_correlation <- renderTable({
+        
+        my_fit <- fit_geeraerd()
+        
+        if (is.FitInactivation(my_fit)) {
+            
+            my_summary <- summary(my_fit)
+            cov2cor(my_summary$cov.unscaled)
+            
+        } else if (is.FitInactivationMCMC(my_fit)) {
+            
+            cor(my_fit$modMCMC$pars)
+            
+        } else {
+            print("Unknown object type")
+        }
+        
+    }, inlude.rownames = TRUE)
     
     #--------------------------------------------------------------------------
     
