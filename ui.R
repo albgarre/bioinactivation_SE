@@ -75,8 +75,8 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Summary",
                                                             tags$h4("Coefficients"),
                                                             tableOutput("bigelow_summary"),
-                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
-                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            helpText("Confidence intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Confidence intervals for parameters from MCMC taken from the quantile of the MCMC simulations"),
                                                             tags$hr(),
                                                             tags$h4("Residuals"),
                                                             tableOutput("bigelow_residuals")
@@ -140,8 +140,8 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Summary",
                                                             tags$h4("Coefficients"),
                                                             tableOutput("peleg_summary"),
-                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
-                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            helpText("Confidence intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Confidence intervals for parameters from MCMC taken from the quantile of the MCMC simulations"),
                                                             tags$hr(),
                                                             tags$h4("Residuals"),
                                                             tableOutput("peleg_residuals")
@@ -210,8 +210,8 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Summary",
                                                             tags$h4("Coefficients"),
                                                             tableOutput("mafart_summary"),
-                                                            helpText("Prediction intervals for parameters from nls calculated considering a t-distribution"),
-                                                            helpText("Prediction intervals for parameters from nls taken from the quantile of the MCMC simulations"),
+                                                            helpText("Confidence intervals for parameters from nls calculated considering a t-distribution"),
+                                                            helpText("Confidence intervals for parameters from MCMC taken from the quantile of the MCMC simulations"),
                                                             tags$hr(),
                                                             tags$h4("Residuals"),
                                                             tableOutput("mafart_residuals")
@@ -306,6 +306,18 @@ shinyUI(navbarPage("bioinactivation",
                                        )
                               ),
                    
+                   #-----------------------------------------------------------------------------
+                   
+                   tabPanel("Reset state",
+                            sidebarLayout(
+                                sidebarPanel(helpText("Clicking the following button resets the state of the internal
+                                                      pseudo-random number generator, providing reproducibility of the MCMC
+                                                      results"),
+                                             actionButton("btn_reset_sheed", "Reset PRNG")
+                                             ),
+                                mainPanel()
+                                )
+                            ),
                    #-----------------------------------------------------------------------------
                    
                    tabPanel("About",
