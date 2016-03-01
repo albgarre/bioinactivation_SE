@@ -79,7 +79,10 @@ shinyUI(navbarPage("bioinactivation",
                                                             helpText("Confidence intervals for parameters from MCMC taken from the quantile of the MCMC simulations"),
                                                             tags$hr(),
                                                             tags$h4("Residuals"),
-                                                            tableOutput("bigelow_residuals")
+                                                            tableOutput("bigelow_residuals"),
+                                                            tags$hr(),
+                                                            tags$h4("Parameter correlation"),
+                                                            tableOutput("bigelow_correlation")
                                                             ),
                                                    
                                                    tabPanel("Prediction interval",

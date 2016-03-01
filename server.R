@@ -87,20 +87,7 @@ residuals_MCMC_fit <- function(MCMC_fit) {
     
     model_cost <- modCost(model = my_prediction, obs = exp_data)
     
-#     n_points <- nrow(MCMC_fit$data)
     n_points <- sum(!(is.na(MCMC_fit$data$logN)))
-#     n_pars <- length(MCMC_fit$modMCMC$bestpar)
-#     n_dof <- n_points - n_pars
-    
-    ##################
-#     print("-> MCMC")
-#     print("points")
-#     print(n_points)
-#     print("pars")
-#     print(n_pars)
-#     print("dof")
-#     print(n_dof)
-    ##################
     
     out_frame <- data.frame(SSE = model_cost$model,
                             MSE = model_cost$model/n_points,
@@ -118,12 +105,6 @@ residuals_nlr_fit <- function(dynamic_fit) {
                             MSE = dynamic_fit$fit_results$ms,
                             RMSE = sqrt(dynamic_fit$fit_results$ms)
                             )
-    
-    ##################
-#     print("-> nlr")
-#     print("SSE/MSE")
-#     print(out_frame$SSE/out_frame$MSE)
-    ##################
     out_frame
 }
 
@@ -300,6 +281,27 @@ shinyServer(function(input, output) {
         out_frame
         
     }, include.rownames = FALSE)
+    
+    #--------------------------------------------------------------------------
+    
+    output$bigelow_correlation <- renderTable({
+        
+        my_fit <- fit_bigelow()
+        
+        if (is.FitInactivation(my_fit)) {
+            
+            my_summary <- summary(my_fit)
+            cov2cor(my_summary$cov.unscaled)
+            
+        } else if (is.FitInactivationMCMC(my_fit)) {
+            
+            cor(my_fit$modMCMC$pars)
+            
+        } else {
+            print("Unknown object type")
+        }
+        
+    }, inlude.rownames = TRUE)
     
     #--------------------------------------------------------------------------
 
