@@ -863,6 +863,23 @@ shinyServer(function(input, output) {
     
     ## Functions for downloading summary statistics
     
+    output$down_Bigelow_coef <- downloadHandler(
+        filename = function() "coefficient_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_bigelow()
+            
+            if (input$algorithm_bigelow == "nlr") {
+                
+                out_frame <- summary_dynamic_fit(my_fit)
+                
+            } else {
+                out_frame <- summary_MCMC_fit(my_fit)
+            }
+            
+            write.csv(out_frame, file = file, row.names = FALSE)
+        })
+    
     output$down_Peleg_coef <- downloadHandler(
         filename = function() "coefficient_table.csv",
         content = function(file) {
@@ -876,7 +893,41 @@ shinyServer(function(input, output) {
             } else {
                 out_frame <- summary_MCMC_fit(my_fit)
             }
-
+            
+            write.csv(out_frame, file = file, row.names = FALSE)
+        })
+    
+    output$down_Mafart_coef <- downloadHandler(
+        filename = function() "coefficient_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_mafart()
+            
+            if (input$algorithm_mafart == "nlr") {
+                
+                out_frame <- summary_dynamic_fit(my_fit)
+                
+            } else {
+                out_frame <- summary_MCMC_fit(my_fit)
+            }
+            
+            write.csv(out_frame, file = file, row.names = FALSE)
+        })
+    
+    output$down_Geeraerd_coef <- downloadHandler(
+        filename = function() "coefficient_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_geeraerd()
+            
+            if (input$algorithm_geeraerd == "nlr") {
+                
+                out_frame <- summary_dynamic_fit(my_fit)
+                
+            } else {
+                out_frame <- summary_MCMC_fit(my_fit)
+            }
+            
             write.csv(out_frame, file = file, row.names = FALSE)
         })
     

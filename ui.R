@@ -95,7 +95,12 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Export results",
                                                             tags$h4("Adjusted model"),
                                                             textInput("filename_Bigelow_pred", "File name:", "prediction-Bigelow.csv"),
-                                                            downloadButton("down_Bigelow_pred", "Download")
+                                                            downloadButton("down_Bigelow_pred", "Download"),
+                                                            tags$hr(),
+                                                            tags$h4("Summary tables"),
+                                                            downloadButton("down_Bigelow_coef", "Coefficients"),
+                                                            downloadButton("down_Bigelow_res", "Residuals"),
+                                                            downloadButton("down_Bigelow_cor", "Correlation")
                                                             )
                                                    )
                                                )
@@ -248,7 +253,12 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Export results",
                                                             tags$h4("Adjusted model"),
                                                             textInput("filename_Mafart_pred", "File name:", "prediction-Mafart.csv"),
-                                                            downloadButton("down_Mafart_pred", "Download")
+                                                            downloadButton("down_Mafart_pred", "Download"),
+                                                            tags$hr(),
+                                                            tags$h4("Summary tables"),
+                                                            downloadButton("down_Mafart_coef", "Coefficients"),
+                                                            downloadButton("down_Mafart_res", "Residuals"),
+                                                            downloadButton("down_Mafart_cor", "Correlation")
                                                    )
                                                )
                                            )
@@ -330,7 +340,12 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Export results",
                                                             tags$h4("Adjusted model"),
                                                             textInput("filename_Geeraerd_pred", "File name:", "prediction-Geeraerd.csv"),
-                                                            downloadButton("down_Geeraerd_pred", "Download")
+                                                            downloadButton("down_Geeraerd_pred", "Download"),
+                                                            tags$hr(),
+                                                            tags$h4("Summary tables"),
+                                                            downloadButton("down_Geeraerd_coef", "Coefficients"),
+                                                            downloadButton("down_Geeraerd_res", "Residuals"),
+                                                            downloadButton("down_Geeraerd_cor", "Correlation")
                                                    )
                                                )
                                            )
