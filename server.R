@@ -1,8 +1,8 @@
 
-library(ggplot2)
-library(bioinactivation)
-library(dplyr)
-library(FME)
+library("ggplot2")
+library("dplyr")
+library("FME")
+library("bioinactivation")
 
 #==============================================================================
 
@@ -22,7 +22,7 @@ summary_dynamic_fit <- function(dynamic_fit) {
     fit_summary <- summary(dynamic_fit)
     
     out_frame <- as.data.frame(fit_summary$par)
-    out_frame <- cbind(rownames(out_frame), out_frame)
+    out_frame <- cbind(rownames(out_frame), out_frame, stringsAsFactors=FALSE)
     out_frame <- out_frame[ , 1:3]
     names(out_frame) <- c("parameter", "estimate", "std")
     n_df <- fit_summary$df[2]
@@ -32,6 +32,14 @@ summary_dynamic_fit <- function(dynamic_fit) {
                         lower95 = estimate - t_value*std,
                         upper95 = estimate + t_value*std
                         )
+    
+    rownames(out_frame) <- out_frame$parameter
+    
+    if ("N0" %in% out_frame$parameter) {
+        new_row <- c("logN0", log10(out_frame["N0", 2:5]))
+        names(new_row) <- NULL
+        out_frame <- rbind(out_frame, new_row)
+    }
     
     out_frame
     
@@ -53,7 +61,14 @@ summary_MCMC_fit <- function(MCMC_fit) {
                             estimate = MCMC_fit$modMCMC$bestpar,
                             std = unlist(fit_summary[2, ]),
                             lower95 = intervals[1, ],
-                            upper95 = intervals[2, ])
+                            upper95 = intervals[2, ],
+                            stringsAsFactors = FALSE)
+    
+    if ("N0" %in% out_frame$parameter) {
+        new_row <- c("logN0", log10(out_frame["N0", 2:5]))
+        names(new_row) <- NULL
+        out_frame <- rbind(out_frame, new_row)
+    }
     
     out_frame
     
