@@ -859,6 +859,63 @@ shinyServer(function(input, output) {
         }
     )
     
+    ##=========================================================================
+    
+    ## Functions for downloading summary statistics
+    
+    output$down_Peleg_coef <- downloadHandler(
+        filename = function() "coefficient_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_peleg()
+            
+            if (input$algorithm_peleg == "nlr") {
+                
+                out_frame <- summary_dynamic_fit(my_fit)
+                
+            } else {
+                out_frame <- summary_MCMC_fit(my_fit)
+            }
+
+            write.csv(out_frame, file = file, row.names = FALSE)
+        })
+    
+    output$down_Peleg_res <- downloadHandler(
+        filename = function() "residual_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_peleg()
+            
+            if (input$algorithm_peleg == "nlr") {
+                res_table <- residuals_nlr_fit(my_fit)
+            } else {
+                res_table <- residuals_MCMC_fit(my_fit)
+            }
+            
+            write.csv(res_table, file = file, row.names = FALSE)
+            
+        })
+    
+
+        
+    output$down_Peleg_cor <- downloadHandler(
+        filename = function() "correlation_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_peleg()
+            
+            if (is.FitInactivation(my_fit)) {
+                
+                my_summary <- summary(my_fit)
+                my_cor <- cov2cor(my_summary$cov.unscaled)
+                
+            } else {
+                
+                my_cor <- cor(my_fit$modMCMC$pars)
+            }
+            write.csv(my_cor, file = file, row.names = FALSE)
+        })
+    
     #==========================================================================
     
     ## Functions for the PRNG

@@ -166,7 +166,12 @@ shinyUI(navbarPage("bioinactivation",
                                                    tabPanel("Export results",
                                                             tags$h4("Adjusted model"),
                                                             textInput("filename_Peleg_pred", "File name:", "prediction-Peleg.csv"),
-                                                            downloadButton("down_Peleg_pred", "Download")
+                                                            downloadButton("down_Peleg_pred", "Download"),
+                                                            tags$hr(),
+                                                            tags$h4("Summary tables"),
+                                                            downloadButton("down_Peleg_coef", "Coefficients"),
+                                                            downloadButton("down_Peleg_res", "Residuals"),
+                                                            downloadButton("down_Peleg_cor", "Correlation")
                                                    )
                                                )
                                            )
