@@ -67,7 +67,9 @@ shinyUI(navbarPage("bioinactivation",
                                                             ),
                                                    tabPanel("Make adjustment",
                                                             tags$hr(),
-                                                            actionButton("btn_bigelow", "Adjust")
+                                                            actionButton("btn_bigelow", "Adjust"),
+                                                            tags$hr(),
+                                                            actionButton("btn_bigelow_seed", "Reset PRNG")
                                                             )
                                                    )
                                                
@@ -145,7 +147,9 @@ shinyUI(navbarPage("bioinactivation",
                                                             ),
                                                    tabPanel("Make adjustment",
                                                             tags$hr(),
-                                                            actionButton("btn_peleg", "Adjust")
+                                                            actionButton("btn_peleg", "Adjust"),
+                                                            tags$hr(),
+                                                            actionButton("btn_peleg_seed", "Reset PRNG")
                                                             )
                                                    )
                                            ),
@@ -226,7 +230,9 @@ shinyUI(navbarPage("bioinactivation",
                                                             ),
                                                    tabPanel("Make adjustment",
                                                             tags$hr(),
-                                                            actionButton("btn_mafart", "Adjust")
+                                                            actionButton("btn_mafart", "Adjust"),
+                                                            tags$hr(),
+                                                            actionButton("btn_mafart_seed", "Reset PRNG")
                                                             )
                                                    )
                                                
@@ -314,7 +320,9 @@ shinyUI(navbarPage("bioinactivation",
                                                             ),
                                                    tabPanel("Make adjustment",
                                                             tags$hr(),
-                                                            actionButton("btn_geeraerd", "Adjust")
+                                                            actionButton("btn_geeraerd", "Adjust"),
+                                                            tags$hr(),
+                                                            actionButton("btn_geeraerd_seed", "Reset PRNG")
                                                             )
                                                    )
                                            ),
@@ -355,16 +363,16 @@ shinyUI(navbarPage("bioinactivation",
                    
                    #-----------------------------------------------------------------------------
                    
-                   tabPanel("Reset state",
-                            sidebarLayout(
-                                sidebarPanel(helpText("Clicking the following button resets the state of the internal
-                                                      pseudo-random number generator, providing reproducibility of the MCMC
-                                                      results"),
-                                             actionButton("btn_reset_seed", "Reset PRNG")
-                                             ),
-                                mainPanel()
-                                )
-                            ),
+#                    tabPanel("Reset state",
+#                             sidebarLayout(
+#                                 sidebarPanel(helpText("Clicking the following button resets the state of the internal
+#                                                       pseudo-random number generator, providing reproducibility of the MCMC
+#                                                       results"),
+#                                              actionButton("btn_reset_seed", "Reset PRNG")
+#                                              ),
+#                                 mainPanel()
+#                                 )
+#                             ),
                    #-----------------------------------------------------------------------------
                    
                    tabPanel("About",

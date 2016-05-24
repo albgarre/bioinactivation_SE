@@ -1075,7 +1075,23 @@ shinyServer(function(input, output) {
     
     ## Functions for the PRNG
     
-    observeEvent(input$btn_reset_seed, {
+#     observeEvent(input$btn_reset_seed, {
+#         set.seed(41029072)
+#     })
+    
+    observeEvent(input$btn_bigelow_seed, {
+        set.seed(41029072)
+    })
+    
+    observeEvent(input$btn_peleg_seed, {
+        set.seed(41029072)
+    })
+    
+    observeEvent(input$btn_mafart_seed, {
+        set.seed(41029072)
+    })
+    
+    observeEvent(input$btn_geeraerd_seed, {
         set.seed(41029072)
     })
     
