@@ -861,7 +861,7 @@ shinyServer(function(input, output) {
     
     ##=========================================================================
     
-    ## Functions for downloading summary statistics
+    ## Functions for downloading summary statistics - coefficents
     
     output$down_Bigelow_coef <- downloadHandler(
         filename = function() "coefficient_table.csv",
@@ -931,6 +931,24 @@ shinyServer(function(input, output) {
             write.csv(out_frame, file = file, row.names = FALSE)
         })
     
+    ## Functions for downloading summary statistics - residuals
+    
+    output$down_Bigelow_res <- downloadHandler(
+        filename = function() "residual_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_bigelow()
+            
+            if (input$algorithm_bigelow == "nlr") {
+                res_table <- residuals_nlr_fit(my_fit)
+            } else {
+                res_table <- residuals_MCMC_fit(my_fit)
+            }
+            
+            write.csv(res_table, file = file, row.names = FALSE)
+            
+        })
+    
     output$down_Peleg_res <- downloadHandler(
         filename = function() "residual_table.csv",
         content = function(file) {
@@ -947,13 +965,99 @@ shinyServer(function(input, output) {
             
         })
     
-
+    output$down_Mafart_res <- downloadHandler(
+        filename = function() "residual_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_mafart()
+            
+            if (input$algorithm_mafart == "nlr") {
+                res_table <- residuals_nlr_fit(my_fit)
+            } else {
+                res_table <- residuals_MCMC_fit(my_fit)
+            }
+            
+            write.csv(res_table, file = file, row.names = FALSE)
+            
+        })
+    
+    output$down_Geeraerd_res <- downloadHandler(
+        filename = function() "residual_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_geeraerd()
+            
+            if (input$algorithm_geeraerd == "nlr") {
+                res_table <- residuals_nlr_fit(my_fit)
+            } else {
+                res_table <- residuals_MCMC_fit(my_fit)
+            }
+            
+            write.csv(res_table, file = file, row.names = FALSE)
+            
+        })
+    
+    ## Functions for downloading summary statistics - correlation
         
+    output$down_Bigelow_cor <- downloadHandler(
+        filename = function() "correlation_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_bigelow()
+            
+            if (is.FitInactivation(my_fit)) {
+                
+                my_summary <- summary(my_fit)
+                my_cor <- cov2cor(my_summary$cov.unscaled)
+                
+            } else {
+                
+                my_cor <- cor(my_fit$modMCMC$pars)
+            }
+            write.csv(my_cor, file = file, row.names = FALSE)
+        })
+    
     output$down_Peleg_cor <- downloadHandler(
         filename = function() "correlation_table.csv",
         content = function(file) {
             
             my_fit <- fit_peleg()
+            
+            if (is.FitInactivation(my_fit)) {
+                
+                my_summary <- summary(my_fit)
+                my_cor <- cov2cor(my_summary$cov.unscaled)
+                
+            } else {
+                
+                my_cor <- cor(my_fit$modMCMC$pars)
+            }
+            write.csv(my_cor, file = file, row.names = FALSE)
+        })
+    
+    output$down_Mafart_cor <- downloadHandler(
+        filename = function() "correlation_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_mafart()
+            
+            if (is.FitInactivation(my_fit)) {
+                
+                my_summary <- summary(my_fit)
+                my_cor <- cov2cor(my_summary$cov.unscaled)
+                
+            } else {
+                
+                my_cor <- cor(my_fit$modMCMC$pars)
+            }
+            write.csv(my_cor, file = file, row.names = FALSE)
+        })
+    
+    output$down_Geeraerd_cor <- downloadHandler(
+        filename = function() "correlation_table.csv",
+        content = function(file) {
+            
+            my_fit <- fit_geeraerd()
             
             if (is.FitInactivation(my_fit)) {
                 
