@@ -385,21 +385,29 @@ shinyUI(navbarPage("bioinactivation",
                                    implemented in the bionactivation package of R (a.k.a. bioinactivation core)."),
                             tags$p("A link to the latest version of this application can be found in the following
                                    webpage:"),
-                            tags$p("www.TBD.es"),
+                            tags$p("https://opada-upct.shinyapps.io/bioinactivation_SE/"),
                             tags$hr(),
-                            tags$p("For bug reports and support, please use the following mail account: alberto.garre@upct.es."),
+                            tags$p("For bug reports and support, please use one of the following e-mail accounts:"),
+                            tags$p("garre.alberto@gmail.com"),
+                            tags$p("pablo.fernandez@upct.es"),
                             tags$hr(),
                             tags$p("When using this application, please citate it as:"),
-                            tags$p("Alberto Garre, Pablo S. Fernandez and Jose A. Egea(2016).
-                                   bioinactivation: Simulation of Dynamic Microbial Inactivation.
-                                   R package version 1.1.2."),
+                            tags$p("Alberto Garre, Pablo S. Fernandez, Roland Lindqvist,Jose A. Egea,
+                                    Bioinactivation: Software for modelling dynamic microbial inactivation,
+                                    Food Research International, Volume 93, March 2017, Pages 66-74, ISSN 0963-9969,
+                                    http://dx.doi.org/10.1016/j.foodres.2017.01.012."),
                             tags$p("A BibTeX entry for LaTeX users is"),
-                            tags$p("@Manual{,
-                                    title = {bioinactivation: Simulation of Dynamic Microbial Inactivation},
-                                    author = {Alberto Garre and Pablo S. Fernandez and Jose A. Egea},
-                                    year = {2016},
-                                    note = {R package version 1.1.1},
-                                    }"
+                            tags$p("@Article{,
+                                   author = {Alberto Garre and Pablo S. Fernandez and Roland Lindqvist and Jose A. Egea},
+                                   title = {Bioinactivation: Software for modelling dynamic microbial inactivation },
+                                   journal = {Food Research International },
+                                   volume = {93},
+                                   pages = {66 - 74},
+                                   year = {2017},
+                                   issn = {0963-9969},
+                                   doi = {10.1016/j.foodres.2017.01.012},
+                                   url = {//www.sciencedirect.com/science/article/pii/S0963996917300200},
+                                   }"
                                    )
                             )
                    
