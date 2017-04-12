@@ -11,7 +11,9 @@ shinyUI(navbarPage("bioinactivation",
                                                        accept=c('text/csv','text/comma-separated-values,text/plain', '.csv')),
                                              tags$hr(),
                                              radioButtons("sep", "Separator",
-                                                          c(Comma = ",", Semicolon = ";", Tab = "\t"), "\t")
+                                                          c(Comma = ",", Semicolon = ";", Tab = "\t"), "\t"),
+                                             tags$hr(),
+                                             radioButtons("dec", "Decimal Point", c(Point = ".", Comma = ","), ".")
                                              ),
                                 mainPanel(
                                     tabsetPanel(tabPanel("Tabular view", tableOutput('contents')),

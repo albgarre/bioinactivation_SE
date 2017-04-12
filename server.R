@@ -143,7 +143,8 @@ shinyServer(function(input, output) {
         if (is.null(inFile))
             return(NULL)
         
-        exp_data <<- read.csv(inFile$datapath, header = TRUE, sep = input$sep) %>%
+        exp_data <<- read.csv(inFile$datapath, header = TRUE,
+                              sep = input$sep, dec = input$dec) %>%
                      mutate(., log.UFC = log10(N))
         exp_data
     })
