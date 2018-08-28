@@ -378,7 +378,7 @@ shinyUI(navbarPage("bioinactivation",
                    #-----------------------------------------------------------------------------
                    
                    tabPanel("About",
-                            tags$h3("Bioinactivation SE. Version 0.1.0"),
+                            tags$h3("Bioinactivation SE. Version 0.1.1"),
                             tags$hr(),
                             tags$p("Bioinactivation SE (simplified environment) has been developed at the Universidad Politecnica
                                     de Cartagena together by the departments of Applied Mathematics and Food Microbiology."),
