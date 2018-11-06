@@ -129,6 +129,26 @@ residuals_nlr_fit <- function(dynamic_fit) {
 #'
 shinyServer(function(input, output) {
     
+    ## POPUP MESSAGE
+    
+    showModal(modalDialog(
+        title = "A new version of Bioinactivation is available!",
+        tags$p("It includes new functions, as well as an improved user interface"),
+        tags$p("It can be accessed in the follwing link:"),
+        tags$link("https://opada-upct.shinyapps.io/bioinactivationFull/"),
+        easyClose = FALSE,
+        ###
+        
+        footer = tagList(
+            modalButton("Stay in the old version..."),
+            actionButton(inputId='ab1', label="Or go to the new one!", 
+                         icon = icon("heart"), 
+                         onclick ="window.open('https://opada-upct.shinyapps.io/bioinactivationFull/', '_blank')")
+        )
+        
+        ###
+    ))
+    
     ## FUNCTIONS FOR DATA INPUT
     
     output$contents <- renderTable({
